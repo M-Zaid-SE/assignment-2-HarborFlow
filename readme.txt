@@ -7,17 +7,27 @@ Python version tested:
 
 Team members and concrete contributions
 ---------------------------------------
-Name:
+Name: Zaid
 Contribution:
+Task 0
+Task 3
+Task 5
+Task 7
 
-Name:
+Name: Edvin
 Contribution:
+Task 1
+Task 2
 
-Name:
+Name: Isac
 Contribution:
+Task 6
+Task 4
 
-Name (if applicable):
+Name: Gustav
 Contribution:
+Task 8
+Task 9
 
 Architecture
 ------------
