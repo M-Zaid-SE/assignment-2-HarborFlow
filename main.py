@@ -3,6 +3,34 @@ from datetime import datetime
 import data_access
 # Constants
 
+
+#Task 0
+def menu(): 
+    options = [
+    "1. List registered vessels",
+    "2. Inspect a vessel manifest",
+    "3. Identify priority cargo",
+    "4. Export a customer operations profile",
+    "5. Find port calls by month",
+    "6. Sanitize an incident report",
+    "7. Analyze the longest stable event sequence",
+    "8. Assess weather risk for upcoming calls",
+    "9. Search incident reports",
+    "10. Close console"
+]
+
+    print("HARBORFLOW PORT INTELLIGENCE")
+    for option in options:
+        print(option)
+       
+    choice = input("Select service: ")
+
+    while choice.isdigit is False or int(choice) < 1 or int(choice) > 10:
+        print("Invalid choice - Try Again")
+        choice = input("Select service: ")
+
+    return int(choice)
+
 def parse_date(text):
     '''Takes a date string and returns a date object. Raises ValueError unless it is exactly YYYY-MM-DD'''
     if len(text) != 10: # strptime alone accepts short forms like 2026-10-1
@@ -84,13 +112,17 @@ def inspect_manifest():
     
 
 def main():
-    # TODO: implement the persistent menu and orchestrate the services.
+    service = menu()
+    while service != 10:
+        #TODO: IMPORTANT: at the end lick all the tasks 
+        if service == 1:
+            #put the thing you need to run task 1 
+            print()
+        elif service == 2:
+            inspect_manifest()
 
-
-    # Call to task 2
-    inspect_manifest()
-
-    pass
+    print("Console closed. HarborFlow operational data remains safe. ")
+    
 
 
 if __name__ == "__main__":
