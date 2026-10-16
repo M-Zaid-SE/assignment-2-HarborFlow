@@ -1,6 +1,8 @@
 # Imports
 from datetime import datetime
 import data_access
+import task_3
+import task_5
 # Constants
 
 
@@ -120,6 +122,27 @@ def main():
             print()
         elif service == 2:
             inspect_manifest()
+            print()
+            main()
+
+        elif service == 3:
+            input_call_id = task_3.processing_call_id()
+            shipment_ids = task_3.checking_call_id(input_call_id)
+
+            if shipment_ids is not None:
+                task_3.shipment_data(shipment_ids)
+            print()
+            main()
+
+        elif service == 4:
+            #put the thing you need to run task 1 
+            print()
+
+        elif service == 5:
+            user_month = task_5.processing_user_month()
+            task_5.checking_user_month(user_month)
+            print()
+            main()
 
     print("Console closed. HarborFlow operational data remains safe. ")
     

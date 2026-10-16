@@ -1,6 +1,6 @@
 #Menu bar 
 
-def menu(): #prints the choices and takes input
+def menu(): 
     options = [
     "1. List registered vessels",
     "2. Inspect a vessel manifest",
@@ -35,7 +35,7 @@ def main():
         elif service == 2:
             print()
 
-        #IMPORTANT: at the end add all the choices
+        #TODO: IMPORTANT: at the end add all the choices
     
     print("Console closed. HarborFlow operational data remains safe. ")
 

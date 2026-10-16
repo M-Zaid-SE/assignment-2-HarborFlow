@@ -84,8 +84,9 @@ def checking_user_month(user_month):
             print(f"- {row_day} {row_month} {row_year} | {vessel_name} | {port_code} | {call_id}")
 
                
-    
+"""    
 user_month = processing_user_month()
 checking_user_month(user_month)
 
 
+"""
