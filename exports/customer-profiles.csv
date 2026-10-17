@@ -1,0 +1,4 @@
+customer,shipment_count,total_weight_kg,express_count,destinations
+norra medtech ab,8,6420.5,3,CPH|CPH|CPH|GOT|GOT|GOT|OSL|OSL
+vänern tools ab,2,5870.0,1,AAR|OSL
+göta paper cooperative,1,2750.0,0,GOT
