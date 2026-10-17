@@ -6,16 +6,16 @@ def match_name(name):
     data = {}
     found_in = []
 
-    for f in sorted(folder.glob("*.json")):
+    for f in folder.glob("*.json"): # Loops through all .json files under trajectory
         with open(f, "r", encoding="utf-8") as file:
-            data[f.name] = json.load(file)
+            data[f.name] = json.load(file) # Store the parsed shipment record in data, keyed by its file name.
 
 
-    for filename, record in data.items():
+    for filename, record in data.items(): # Data.items() gives each key and value pair, filename and record.
         if record["customer"].strip().lower() == name.strip().lower():
             found_in.append(filename)
             
-    return found_in
+    return found_in # Returns list of files that contain entered customer
 
 
 def check_file_exists():
@@ -48,9 +48,9 @@ def calculations(found_in):
             express_count += 1
         destinations_list.append(record["destination"])
 
-    destinations_list.sort()
-    destinations = "|".join(destinations_list)    
-    return shipment_count_total, total_weight_kg, express_count, destinations
+    destinations_list.sort() # Sorts the list of destinations alphabetically
+    destinations = "|".join(destinations_list) # Joins the list with required symbol
+    return shipment_count_total, total_weight_kg, express_count, destinations # Returns relevant values
             
 
 def add_profile(name, shipment_count_total, total_weight_kg, express_count, destinations):
@@ -62,23 +62,23 @@ def add_profile(name, shipment_count_total, total_weight_kg, express_count, dest
 
     with open(customer_profiles, "r", newline="", encoding="utf-8") as file:
         reader = csv.reader(file)
-        next(reader, None)
+        next(reader, None) # Skips first row, the header.
         for row in reader:
             if row[0].strip().lower() == name.strip().lower():
-                found = True
-                rows.append(new_row)
+                found = True # I.e if customer exists
+                rows.append(new_row) # Adds the new data into the empty list, rows. Does not add old data.
             else:
-                rows.append(row)
+                rows.append(row) # Adds any existing data in the .csv into the list for safekeeping
 
     if not found:
         with open(customer_profiles, "a", newline="", encoding="utf-8") as file:
             writer = csv.writer(file)
-            writer.writerow(new_row)
+            writer.writerow(new_row) # Adds new row at bottom of .csv if customer didn't exist beforehand
     else:
         with open(customer_profiles, "w", newline="", encoding="utf-8") as file:
             writer = csv.writer(file)
-            writer.writerow(header)
-            writer.writerows(rows)
+            writer.writerow(header) # Adds the header back, write overwrites all previous data
+            writer.writerows(rows) # Rewrites all other rows including those we safekept earlier.
 
 
 
