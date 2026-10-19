@@ -1,7 +1,41 @@
 # Imports
 from datetime import datetime
+from pathlib import Path
+import json
 import data_access
+import task_3
+import task_4
+import task_5
+import task_6
 # Constants
+
+
+#Task 0
+def menu(): 
+    options = [
+    "1. List registered vessels",
+    "2. Inspect a vessel manifest",
+    "3. Identify priority cargo",
+    "4. Export a customer operations profile",
+    "5. Find port calls by month",
+    "6. Sanitize an incident report",
+    "7. Analyze the longest stable event sequence",
+    "8. Assess weather risk for upcoming calls",
+    "9. Search incident reports",
+    "10. Close console"
+]
+
+    print("HARBORFLOW PORT INTELLIGENCE")
+    for option in options:
+        print(option)
+       
+    choice = input("Select service: ")
+
+    while choice.isdigit is False or int(choice) < 1 or int(choice) > 10:
+        print("Invalid choice - Try Again")
+        choice = input("Select service: ")
+
+    return int(choice)
 
 def parse_date(text):
     '''Takes a date string and returns a date object. Raises ValueError unless it is exactly YYYY-MM-DD'''
@@ -81,16 +115,119 @@ def inspect_manifest():
     print(f"Missing shipment records: {missing}")
     return call
 
+
+
+#Task 7
+def checking_call_id(input_call_id):
     
+    
+    calling_file = Path("dataset/manifests")
+
+    
+    for file_path in calling_file.glob("*.json"):                 
+        try:
+           
+            with open(file_path, "r", encoding="utf-8") as file:      
+                manifest = json.load(file)                        
+            
+            file_call_id = manifest.get("call_id", "").strip().upper()
+
+            
+            if file_call_id == input_call_id:
+                print(f"Match found {file_path.name}")   
+                #this whole function is taken from task 3 expect for this next 2 lines              
+                event_codes = manifest.get("event_codes", [])      
+                return event_codes        
+            
+        except (FileNotFoundError, OSError, json.JSONDecodeError):   
+            print(f"Manifest unavailable: {file_path.name}")
+            continue 
+    print("Port call not found")                                     
+    return None
+
+def arranging_event_codes(event_codes):
+    sequenced_event_codes = []
+
+    for event in event_codes:
+        if event not in sequenced_event_codes:
+            sequenced_event_codes.append(event)
+        else:
+            index_of_event = sequenced_event_codes.index(event)
+            old_event = sequenced_event_codes[index_of_event]
+            sequenced_event_codes.remove(old_event)
+            sequenced_event_codes.append(event)
+            sequenced_event_codes = sequenced_event_codes[index_of_event:]
+
+
+    y = ",".join(event_codes)
+    print(f"Event codes: {y}")
+    print(f"Longest stable sequence length: {len(sequenced_event_codes)}")
+    x = " -> ".join(sequenced_event_codes)  #this turn the , in to -> in the list and removes the brackets
+    print(f"Sequence: {x}")
+    return
+
+
 
 def main():
-    # TODO: implement the persistent menu and orchestrate the services.
+    service = menu()
+    while service != 10:
+        #TODO: IMPORTANT: at the end lick all the tasks 
+        if service == 1:
+            #put the thing you need to run task 1 
+            print()
+            main()
 
+        elif service == 2:
+            inspect_manifest()
+            print()
+            main()
 
-    # Call to task 2
-    inspect_manifest()
+        elif service == 3:
+            input_call_id = task_3.processing_call_id()
+            shipment_ids = task_3.checking_call_id(input_call_id)
 
-    pass
+            if shipment_ids is not None:
+                task_3.shipment_data(shipment_ids)
+            print()
+            main()
+
+        elif service == 4:
+            name = input("Customer name: ")
+            found_in = task_4.match_name(name)
+            if found_in == []:
+                print("Customer not found.")
+            else:
+                task_4.check_file_exists()
+                shipment_count_total, total_weight_kg, express_count, destinations = task_4.calculations(found_in)
+                task_4.add_profile(name, shipment_count_total, total_weight_kg, express_count, destinations)
+
+                print("Customer profile updated: exports/customerprofiles-csv")
+            print()
+            main()
+
+        elif service == 5:
+            user_month = task_5.processing_user_month()
+            task_5.checking_user_month(user_month)
+            print()
+            main()
+
+        elif service == 6:
+            chosen_incident = task_6.show_incidents()
+            task_6.replacing_container_identifiers(chosen_incident)
+            changed_mail, incident, copied_file = task_6.replacing_container_identifiers(chosen_incident)
+            task_6.write_file(changed_mail, incident, copied_file)
+            print()
+            main()
+
+        elif service == 7:
+            input_call_id = task_3.processing_call_id()
+            event_codes = checking_call_id(input_call_id)
+            arranging_event_codes(event_codes)
+            print()
+            main()
+
+    print("Console closed. HarborFlow operational data remains safe. ")
+    
 
 
 if __name__ == "__main__":

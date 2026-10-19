@@ -5,6 +5,7 @@ def processing_call_id():
     input_call_id = input("Enter caller ID: ")
     input_call_id = input_call_id.strip().upper() #strip removes the surrounding white space
 
+#no need to check the caller id 
     while (len(input_call_id) < 12 or 
            input_call_id[0:3] != "HFL" or 
            input_call_id[3] != "-" or 
@@ -44,6 +45,7 @@ def checking_call_id(input_call_id):
     return None #menu()  TRY To return to menu 
 
 def shipment_data(shipment_ids):
+    #could put this into a dictionary
     category = 0
     category_name = 0
     controled = 0
@@ -93,8 +95,8 @@ def shipment_data(shipment_ids):
 
 
 
-input_call_id = processing_call_id()
+"""input_call_id = processing_call_id()
 shipment_ids = checking_call_id(input_call_id)
 
 if shipment_ids is not None:
-    shipment_data(shipment_ids)
+    shipment_data(shipment_ids)"""
