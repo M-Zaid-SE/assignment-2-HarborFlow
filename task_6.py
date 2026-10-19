@@ -62,7 +62,3 @@ def write_file(changed_mail, incident, copied_file):
     
 
 
-chosen_incident = show_incidents()
-replacing_container_identifiers(chosen_incident)
-changed_mail, incident, copied_file = replacing_container_identifiers(chosen_incident)
-write_file(changed_mail, incident, copied_file)

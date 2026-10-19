@@ -4,7 +4,9 @@ from pathlib import Path
 import json
 import data_access
 import task_3
+import task_4
 import task_5
+import task_6
 # Constants
 
 
@@ -190,7 +192,16 @@ def main():
             main()
 
         elif service == 4:
-            #put the thing you need to run task 4 
+            name = input("Customer name: ")
+            found_in = task_4.match_name(name)
+            if found_in == []:
+                print("Customer not found.")
+            else:
+                task_4.check_file_exists()
+                shipment_count_total, total_weight_kg, express_count, destinations = task_4.calculations(found_in)
+                task_4.add_profile(name, shipment_count_total, total_weight_kg, express_count, destinations)
+
+                print("Customer profile updated: exports/customerprofiles-csv")
             print()
             main()
 
@@ -201,6 +212,10 @@ def main():
             main()
 
         elif service == 6:
+            chosen_incident = task_6.show_incidents()
+            task_6.replacing_container_identifiers(chosen_incident)
+            changed_mail, incident, copied_file = task_6.replacing_container_identifiers(chosen_incident)
+            task_6.write_file(changed_mail, incident, copied_file)
             print()
             main()
 

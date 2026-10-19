@@ -83,14 +83,7 @@ def add_profile(name, shipment_count_total, total_weight_kg, express_count, dest
 
 
 
-name = input("Customer name: ")
 
-found_in = match_name(name)
-check_file_exists()
-shipment_count_total, total_weight_kg, express_count, destinations = calculations(found_in)
-add_profile(name, shipment_count_total, total_weight_kg, express_count, destinations)
-
-print("Customer profile updated: exports/customerprofiles-csv")
 
 
 
