@@ -70,13 +70,8 @@ def weather_report():
                             print(f"Recommendations: {" ".join(recommendation)}")
                             counter += 1
 
-                        elif forecast["date"] != str(arrival_date) and forecast["port_code"] == ports["port_code"]:
-                            print(f"Hellooo")
                     if counter == 0:
                         print(f"No upcoming port calls found.")
             except ValueError:
                 print("Invalid date")
-        
-
-weather_report()
     
