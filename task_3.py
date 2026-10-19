@@ -95,8 +95,3 @@ def shipment_data(shipment_ids):
 
 
 
-"""input_call_id = processing_call_id()
-shipment_ids = checking_call_id(input_call_id)
-
-if shipment_ids is not None:
-    shipment_data(shipment_ids)"""

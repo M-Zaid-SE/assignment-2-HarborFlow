@@ -31,7 +31,7 @@ def menu():
        
     choice = input("Select service: ")
 
-    while choice.isdigit is False or int(choice) < 1 or int(choice) > 10:
+    while choice.isdigit() is False or int(choice) < 1 or int(choice) > 10:
         print("Invalid choice - Try Again")
         choice = input("Select service: ")
 
@@ -168,10 +168,10 @@ def arranging_event_codes(event_codes):
 
 
 
-def main():
+def main():  #TODO: change to match
     service = menu()
     while service != 10:
-        #TODO: IMPORTANT: at the end lick all the tasks 
+        #TODO: IMPORTANT: at the end link all the tasks 
         if service == 1:
             #put the thing you need to run task 1 
             print()
