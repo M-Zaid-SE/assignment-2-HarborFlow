@@ -65,9 +65,9 @@ def weather_report():
                             if not recommendation:
                                 recommendation.append("Normal operating plan.")
                             print(f"\n ----------------------------------------------------")
-                            print(f"{vessel_name.capitalize()}  |  {ports["port_code"]}  |  {arrival_date}")
+                            print(f"{vessel_name.capitalize()}  |  {ports['port_code']}  |  {arrival_date}")
                             print(f"Wind: {wind} km/h  |  Rain: {rain} mm  |  Waves: {waves} m")
-                            print(f"Recommendations: {" ".join(recommendation)}")
+                            print(f"Recommendations: {' '.join(recommendation)}")
                             counter += 1
 
                     if counter == 0:
