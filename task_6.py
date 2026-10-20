@@ -54,8 +54,7 @@ def write_file(changed_mail, incident, copied_file):
             
         with open(folder / (incident_name + "-sanitized.txt"), "w", encoding="utf-8") as file:
             file.write(changed_mail)
-            print(changed_mail)
-            print("File saved.")
+            print("Incident sanitized.")
             return
 
 
