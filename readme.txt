@@ -62,4 +62,8 @@ Known limitations
 * Task 9 is not implemented.
 * Tasks 3, 4, 5, 6 and 8 read files themselves and some prompts and messages differ from the
   assignment.
+<<<<<<< HEAD
 * Task 5 does not recognize out of bound dates like 02-30, where as it should report and skip it. 
+=======
+* Task 6 has no word boundaries for the regular expressions. F.e ABCD12345678 in an incident report would output [CONTAINER]8.
+>>>>>>> 392041f2855230e35b78cf45888dfbab4b741644

@@ -4,24 +4,29 @@ import json
 
 def show_incidents():
     folder = Path("dataset/incidents")
-    choices = []
+    incidents = []
 
-    for number, f in enumerate(folder.glob("*.json"), start=1): # Enumerate makes the returned printed list numbered.
-        with open(f, "r", encoding="utf-8") as file:
-            reader = json.load(file)
-            incident = reader["incident_id"]
-            print(f"{number}. {incident}") # Using an f-string allows adding a dot after each numbered line.
-            choices.append(f)
-    while True: # Ensures the input loops with sanity checks for non-integer inputs and checks correct range.
+    for filepath in folder.glob("*.json"): # Loops through all .json files in folder
+        with open(filepath, "r", encoding="utf-8") as file:
+            record = json.load(file)
+        incidents.append((record["title"], filepath)) # Adds the title and the filepath where that title is found to a tuple inside the incidents list.
+
+    incidents.sort() # Sorts alphabetically.
+
+    for number, (title, filepath) in enumerate(incidents, start=1): # Enumerate adds numbers for each line. 
+        print(f"{number}. {title}")
+
+    while True:
         try:
             choice = int(input("Select an incident: "))
+            if 1 <= choice <= len(incidents):
+                return incidents[choice -1][1] # Returns the path to the chosen file. Indexing into the tuple (-1 to account for 0 start) [1] points at "filepath" in incidents.
+            else:
+                print("Error select a listed incident.")
+                continue
         except ValueError:
-            print("Error - Select a listed incident.")
+            print("Error select a listed incident.")
             continue
-
-        if len(choices) >= choice >= 1:
-            return choices[choice - 1]
-        print("Error - Select a listed incident.")
 
 
 
@@ -34,8 +39,8 @@ def replacing_container_identifiers(incident):
         
     # Substitutes values in accordance to task requirements.
     changed_container = re.sub(r"[A-Za-z]{4}[0-9]{7}", "[CONTAINER]", copied_file)
-    changed_seal = re.sub(r"[A-Za-z]{4}[-][0-9]{6}", "[SEAL]", changed_container)
-    changed_mail = re.sub(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+[A-Za-z]{2,}", "[EMAIL]", changed_seal)
+    changed_seal = re.sub(r"SEAL-[0-9]{6}", "[SEAL]", changed_container)
+    changed_mail = re.sub(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}", "[EMAIL]", changed_seal)
     return changed_mail, incident, copied_file
 
 
@@ -54,8 +59,7 @@ def write_file(changed_mail, incident, copied_file):
             
         with open(folder / (incident_name + "-sanitized.txt"), "w", encoding="utf-8") as file:
             file.write(changed_mail)
-            print(changed_mail)
-            print("File saved.")
+            print("Incident sanitized.")
             return
 
 

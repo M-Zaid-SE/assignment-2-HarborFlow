@@ -1,7 +1,8 @@
 # Imports
 from datetime import datetime
 import data_access
-import task_3, task_4, task_5, task_6, task_8
+import task_3, task_4, task_5, task_6, task_8, task_9
+# Constants
 
 
 def parse_date(text):
@@ -29,9 +30,9 @@ def inspect_manifest():
     # Match name case-insensitively. Unknown vessel returns to menu.
     input_vessel = input("Vessel name: ").strip().casefold()
     for vid, vessel in vessels.items():
-        if vessel["name"].casefold() == input_vessel:
+        if vessel_id is None and vessel["name"].casefold() == input_vessel: # Keep the first match
             vessel_id = vid
-            break
+
     if vessel_id is None:
         print("Vessel not found.")
         return None
@@ -93,15 +94,15 @@ def inspect_manifest():
 
 # Task 4
 def export_customer_profile():
-    name = input("Customer name: ")
+    name = input("Customer name: ").strip()
     found_in = task_4.match_name(name)
     if found_in == []:
         print("Customer not found.")
     else:
         task_4.check_file_exists()
-        shipment_count_total, total_weight_kg, express_count, destinations = task_4.calculations(found_in)
+        shipment_count_total, total_weight_kg, express_count, destinations, name = task_4.calculations(found_in)
         task_4.add_profile(name, shipment_count_total, total_weight_kg, express_count, destinations)
-        print("Customer profile updated: exports/customerprofiles-csv")
+        print("Customer profile updated: exports/customer-profiles.csv")
 
 
 def main():
@@ -175,7 +176,8 @@ def main():
             case 8:
                 task_8.weather_report()
             case 9:
-                print("Search is not implemented yet.") # TODO: Task 9
+                user_search = input("Search incident reports: ")
+                task_9.search(user_search)
             case 10:
                 running = False
 
