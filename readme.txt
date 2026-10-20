@@ -62,3 +62,4 @@ Known limitations
 * Task 9 is not implemented.
 * Tasks 3, 4, 5, 6 and 8 read files themselves and some prompts and messages differ from the
   assignment.
+* Task 6 has no word boundaries for the regular expressions. F.e ABCD12345678 in an incident report would output [CONTAINER]8.

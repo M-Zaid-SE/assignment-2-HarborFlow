@@ -94,13 +94,13 @@ def inspect_manifest():
 
 # Task 4
 def export_customer_profile():
-    name = input("Customer name: ")
+    name = input("Customer name: ").strip()
     found_in = task_4.match_name(name)
     if found_in == []:
         print("Customer not found.")
     else:
         task_4.check_file_exists()
-        shipment_count_total, total_weight_kg, express_count, destinations = task_4.calculations(found_in)
+        shipment_count_total, total_weight_kg, express_count, destinations, name = task_4.calculations(found_in)
         task_4.add_profile(name, shipment_count_total, total_weight_kg, express_count, destinations)
         print("Customer profile updated: exports/customer-profiles.csv")
 
