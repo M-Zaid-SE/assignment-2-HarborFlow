@@ -7,6 +7,7 @@ import task_3
 import task_4
 import task_5
 import task_6
+import task_8
 # Constants
 
 
@@ -225,6 +226,12 @@ def main():  #TODO: change to match
             arranging_event_codes(event_codes)
             print()
             main()
+
+        elif service == 8:
+            task_8.weather_report()
+            main()
+
+        
 
     print("Console closed. HarborFlow operational data remains safe. ")
     

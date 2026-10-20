@@ -74,4 +74,6 @@ def weather_report():
                         print(f"No upcoming port calls found.")
             except ValueError:
                 print("Invalid date")
+
+    return
     
