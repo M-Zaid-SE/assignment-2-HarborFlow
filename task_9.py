@@ -87,6 +87,6 @@ def search(query):
 
     # -negative_score flips the score back to positive for display.
     # The title comes from the loaded titles lookup, not from the reports.
-    print(f"Matches for {query}")
+    print(f"Matches for '{query}'")
     for negative_score, incident_id in pairs:
         print(f"- {incident_id} | score {-negative_score} | {titles[incident_id]}")

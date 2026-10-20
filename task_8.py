@@ -75,7 +75,7 @@ def weather_report():
                             counter += 1
 
                     if counter == 0:
-                        print(f"No upcoming port calls found.")
+                        print(f"Forecast unavailable.")
             # Raised if a port call's arrival_date or a weather value can't be converted
             except ValueError:
                 print("Invalid date")
