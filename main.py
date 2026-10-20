@@ -1,7 +1,13 @@
 # Imports
 from datetime import datetime
 import data_access
-import task_3, task_4, task_5, task_6, task_8
+import task_3
+import task_4
+import task_5
+import task_6
+import task_8
+# Constants
+import task_3, task_4, task_5, task_6, task_8, task_9
 
 
 def parse_date(text):
@@ -175,13 +181,71 @@ def main():
             case 8:
                 task_8.weather_report()
             case 9:
-                print("Search is not implemented yet.") # TODO: Task 9
+                user_search = input("Search incident reports: ")
+                task_9.search(user_search)
             case 10:
                 running = False
 
         if running:
             print()
 
+        elif service == 2:
+            inspect_manifest()
+            print()
+            main()
+
+        elif service == 3:
+            input_call_id = task_3.processing_call_id()
+            shipment_ids = task_3.checking_call_id(input_call_id)
+
+            if shipment_ids is not None:
+                task_3.shipment_data(shipment_ids)
+            print()
+            main()
+
+        elif service == 4:
+            name = input("Customer name: ")
+            found_in = task_4.match_name(name)
+            if found_in == []:
+                print("Customer not found.")
+            else:
+                task_4.check_file_exists()
+                shipment_count_total, total_weight_kg, express_count, destinations = task_4.calculations(found_in)
+                task_4.add_profile(name, shipment_count_total, total_weight_kg, express_count, destinations)
+
+                print("Customer profile updated: exports/customerprofiles-csv")
+            print()
+            main()
+
+        elif service == 5:
+            user_month = task_5.processing_user_month()
+            task_5.checking_user_month(user_month)
+            print()
+            main()
+
+        elif service == 6:
+            chosen_incident = task_6.show_incidents()
+            task_6.replacing_container_identifiers(chosen_incident)
+            changed_mail, incident, copied_file = task_6.replacing_container_identifiers(chosen_incident)
+            task_6.write_file(changed_mail, incident, copied_file)
+            print()
+            main()
+
+        elif service == 7:
+            input_call_id = task_3.processing_call_id()
+            event_codes = checking_call_id(input_call_id)
+            arranging_event_codes(event_codes)
+            print()
+            main()
+
+        elif service == 8:
+            task_8.weather_report()
+            main()
+
+        
+
+    print("Console closed. HarborFlow operational data remains safe. ")
+    
     print("Console closed. HarborFlow operational data remains safe.")
 
 
