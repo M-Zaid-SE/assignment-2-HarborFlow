@@ -4,7 +4,7 @@ import data_access
 
 
 def processing_user_month():
-    user_month = input("Enter a month as an integer from 1 to 12: ")
+    user_month = input("Month (1-12): ")
 
     while True:
 

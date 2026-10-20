@@ -13,7 +13,8 @@ def processing_call_id():
            input_call_id[7] != "-" or 
            not input_call_id[8:].isdigit()):
         
-        print("Wrong format for call ID: eg. HFL-abc-1234")
+        #print("Wrong format for call ID: eg. HFL-abc-1234")
+        print("Port call not found.")
         input_call_id = input("Enter call ID: ").strip().upper()
         
     return input_call_id
