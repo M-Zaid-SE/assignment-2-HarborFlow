@@ -74,5 +74,3 @@ def search(query):
     for negative_score, incident_id in pairs:
         print(f"- {incident_id} | score {-negative_score} | {titles[incident_id]}")
 
-user_search = input("Search incident reports: ")
-search(user_search)

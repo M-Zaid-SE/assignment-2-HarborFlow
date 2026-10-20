@@ -1,16 +1,13 @@
 # Imports
 from datetime import datetime
 import data_access
-<<<<<<< HEAD
 import task_3
 import task_4
 import task_5
 import task_6
 import task_8
 # Constants
-=======
-import task_3, task_4, task_5, task_6, task_8
->>>>>>> b8c27b97272b15b84e8085c84b086c474d739115
+import task_3, task_4, task_5, task_6, task_8, task_9
 
 
 def parse_date(text):
@@ -184,7 +181,8 @@ def main():
             case 8:
                 task_8.weather_report()
             case 9:
-                print("Search is not implemented yet.") # TODO: Task 9
+                user_search = input("Search incident reports: ")
+                task_9.search(user_search)
             case 10:
                 running = False
 
