@@ -11,7 +11,7 @@ def match_name(name):
             data[f.name] = json.load(file) # Store the file contents in the dictionary data, keyed by its filename, "f". Dict in dict.
 
 
-    for filename, record in data.items(): # Data.items() gives each key and value pair, filename and record. Filename e.g 1.23.json and it's value.
+    for filename, record in data.items(): # Data.items() gives each key and value pair, filename and record. "f is path", f.name is its name. Filename e.g 1.23.json and it's value.
         if record["customer"].strip().lower() == name.strip().lower():
             found_in.append(filename)
             
@@ -42,15 +42,20 @@ def calculations(found_in):
         with open(folder / each_file, "r", encoding="utf-8") as file:
             record = json.load(file)
 
+        name = record["customer"]
         shipment_count_total += 1
-        total_weight_kg += record["weight_kg"]
+        total_weight_kg += float(record["weight_kg"])
         if record["priority"] == "EXPRESS":
             express_count += 1
-        destinations_list.append(record["destination"])
+        if record["destination"] in destinations_list:
+            continue
+        else:
+            destinations_list.append(record["destination"])
 
     destinations_list.sort() # Sorts the list of destinations alphabetically
     destinations = "|".join(destinations_list) # Joins the list with required symbol
-    return shipment_count_total, total_weight_kg, express_count, destinations # Returns relevant values
+    total_weight_kg = "{:.2f}".format(total_weight_kg)
+    return shipment_count_total, total_weight_kg, express_count, destinations, name # Returns relevant values
             
 
 def add_profile(name, shipment_count_total, total_weight_kg, express_count, destinations):
