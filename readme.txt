@@ -62,3 +62,4 @@ Known limitations
 * Task 9 is not implemented.
 * Tasks 3, 4, 5, 6 and 8 read files themselves and some prompts and messages differ from the
   assignment.
+* Task 5 does not recognize out of bound dates like 02-30, where as it should report and skip it. 
