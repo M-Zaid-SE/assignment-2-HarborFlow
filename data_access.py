@@ -5,6 +5,12 @@ import csv
 # Paths are relative to this file, so they work from any folder
 BASE_DIR = Path(__file__).resolve().parent
 DATASET_DIR = BASE_DIR / "dataset"
+VESSELS_DIR = DATASET_DIR / "vessels"
+MANIFESTS_DIR = DATASET_DIR / "manifests"
+SHIPMENTS_DIR = DATASET_DIR / "shipments"
+INCIDENTS_DIR = DATASET_DIR / "incidents"
+PORT_CALLS_FILE = DATASET_DIR / "port_calls.csv"
+WEATHER_FILE = DATASET_DIR / "weather.csv"
 
 
 def read_json(folder, required, key):
@@ -74,13 +80,13 @@ def query_json(dataset):
     '''Loads one JSON dataset: vessels, manifests, shipments or incidents.
     Returns (dict of valid records keyed by id, skipped file count)'''
     if dataset == "vessels":
-        return read_json(DATASET_DIR / "vessels", ("vessel_id", "name", "imo", "capacity_teu"), "vessel_id")
+        return read_json(VESSELS_DIR, ("vessel_id", "name", "imo", "capacity_teu"), "vessel_id")
     elif dataset == "manifests":
-        return read_json(DATASET_DIR / "manifests", ("call_id", "vessel_id", "shipment_ids", "event_codes"), "call_id")
+        return read_json(MANIFESTS_DIR, ("call_id", "vessel_id", "shipment_ids", "event_codes"), "call_id")
     elif dataset == "shipments":
-        return read_json(DATASET_DIR / "shipments", ("shipment_id", "customer", "destination", "weight_kg", "priority"), "shipment_id")
+        return read_json(SHIPMENTS_DIR, ("shipment_id", "customer", "destination", "weight_kg", "priority"), "shipment_id")
     elif dataset == "incidents":
-        return read_json(DATASET_DIR / "incidents", ("incident_id", "call_id", "title", "report"), "incident_id")
+        return read_json(INCIDENTS_DIR, ("incident_id", "call_id", "title", "report"), "incident_id")
     else:
         raise ValueError("Unknown JSON dataset '" + dataset + "'.")
 
@@ -89,9 +95,9 @@ def query_csv(dataset):
     '''Loads one CSV dataset: port_calls or weather.
     Returns (list of valid rows, skipped row count)'''
     if dataset == "port_calls":
-        return read_csv(DATASET_DIR / "port_calls.csv", ("call_id", "vessel_id", "port_code", "arrival_date"))
+        return read_csv(PORT_CALLS_FILE, ("call_id", "vessel_id", "port_code", "arrival_date"))
     elif dataset == "weather":
-        return read_csv(DATASET_DIR / "weather.csv", ("port_code", "date", "wind_kmh", "precipitation_mm", "wave_height_m"))
+        return read_csv(WEATHER_FILE, ("port_code", "date", "wind_kmh", "precipitation_mm", "wave_height_m"))
     else:
         raise ValueError("Unknown CSV dataset '" + dataset + "'.")
 

@@ -1,6 +1,6 @@
 from pathlib import Path
 import csv
-import json
+import data_access
 
 
 def processing_user_month():
@@ -19,15 +19,10 @@ def processing_user_month():
         else: return user_month
 
 def load_vessels():
-    vessels = {}           
-    vessels_path = Path("dataset/vessels")  
-    for file_path in vessels_path.glob("*.json"):
-    
-        with open(file_path, "r", encoding="utf-8") as file:
-            vessel_data = json.load(file)
-            vid = vessel_data.get("vessel_id", "").strip()
-            vessels_name = vessel_data.get("name", "").strip()
-            vessels[vid] = vessels_name
+    vessels = {}
+    vessel_records, _ = data_access.query_json("vessels")  #shared loader reports and skips malformed files
+    for vid, vessel_data in vessel_records.items():
+        vessels[vid] = vessel_data["name"]
 
     return vessels
 

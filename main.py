@@ -1,13 +1,8 @@
 # Imports
 from datetime import datetime
 import data_access
-import task_3
-import task_4
-import task_5
-import task_6
-import task_8
-# Constants
 import task_3, task_4, task_5, task_6, task_8, task_9
+# Constants
 
 
 def parse_date(text):
@@ -35,9 +30,9 @@ def inspect_manifest():
     # Match name case-insensitively. Unknown vessel returns to menu.
     input_vessel = input("Vessel name: ").strip().casefold()
     for vid, vessel in vessels.items():
-        if vessel["name"].casefold() == input_vessel:
+        if vessel_id is None and vessel["name"].casefold() == input_vessel: # Keep the first match
             vessel_id = vid
-            break
+
     if vessel_id is None:
         print("Vessel not found.")
         return None
@@ -107,7 +102,7 @@ def export_customer_profile():
         task_4.check_file_exists()
         shipment_count_total, total_weight_kg, express_count, destinations = task_4.calculations(found_in)
         task_4.add_profile(name, shipment_count_total, total_weight_kg, express_count, destinations)
-        print("Customer profile updated: exports/customerprofiles-csv")
+        print("Customer profile updated: exports/customer-profiles.csv")
 
 
 def main():
@@ -189,63 +184,6 @@ def main():
         if running:
             print()
 
-        elif service == 2:
-            inspect_manifest()
-            print()
-            main()
-
-        elif service == 3:
-            input_call_id = task_3.processing_call_id()
-            shipment_ids = task_3.checking_call_id(input_call_id)
-
-            if shipment_ids is not None:
-                task_3.shipment_data(shipment_ids)
-            print()
-            main()
-
-        elif service == 4:
-            name = input("Customer name: ")
-            found_in = task_4.match_name(name)
-            if found_in == []:
-                print("Customer not found.")
-            else:
-                task_4.check_file_exists()
-                shipment_count_total, total_weight_kg, express_count, destinations = task_4.calculations(found_in)
-                task_4.add_profile(name, shipment_count_total, total_weight_kg, express_count, destinations)
-
-                print("Customer profile updated: exports/customerprofiles-csv")
-            print()
-            main()
-
-        elif service == 5:
-            user_month = task_5.processing_user_month()
-            task_5.checking_user_month(user_month)
-            print()
-            main()
-
-        elif service == 6:
-            chosen_incident = task_6.show_incidents()
-            task_6.replacing_container_identifiers(chosen_incident)
-            changed_mail, incident, copied_file = task_6.replacing_container_identifiers(chosen_incident)
-            task_6.write_file(changed_mail, incident, copied_file)
-            print()
-            main()
-
-        elif service == 7:
-            input_call_id = task_3.processing_call_id()
-            event_codes = checking_call_id(input_call_id)
-            arranging_event_codes(event_codes)
-            print()
-            main()
-
-        elif service == 8:
-            task_8.weather_report()
-            main()
-
-        
-
-    print("Console closed. HarborFlow operational data remains safe. ")
-    
     print("Console closed. HarborFlow operational data remains safe.")
 
 
