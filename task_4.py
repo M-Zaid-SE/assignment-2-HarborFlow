@@ -8,10 +8,10 @@ def match_name(name):
 
     for f in folder.glob("*.json"): # Loops through all .json files under trajectory
         with open(f, "r", encoding="utf-8") as file:
-            data[f.name] = json.load(file) # Store the parsed shipment record in data, keyed by its file name.
+            data[f.name] = json.load(file) # Store the file contents in the dictionary data, keyed by its filename, "f". Dict in dict.
 
 
-    for filename, record in data.items(): # Data.items() gives each key and value pair, filename and record.
+    for filename, record in data.items(): # Data.items() gives each key and value pair, filename and record. Filename e.g 1.23.json and it's value.
         if record["customer"].strip().lower() == name.strip().lower():
             found_in.append(filename)
             
