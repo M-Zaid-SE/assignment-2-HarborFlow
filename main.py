@@ -137,9 +137,10 @@ def main():
                 inspect_manifest()
             case 3:
                 input_call_id = task_3.processing_call_id()
-                shipment_ids = task_3.checking_call_id(input_call_id)
-                if shipment_ids is not None:
-                    task_3.shipment_data(shipment_ids)
+                if input_call_id is not None: # Invalid format already printed "Port call not found."
+                    shipment_ids = task_3.checking_call_id(input_call_id)
+                    if shipment_ids is not None:
+                        task_3.shipment_data(shipment_ids)
             case 4:
                 export_customer_profile()
             case 5:
@@ -154,11 +155,13 @@ def main():
                 manifests, _ = data_access.query_json("manifests")
                 event_codes = None
                 for call_id, manifest in manifests.items():
-                    if call_id.strip().upper() == input_call_id:
+                    if input_call_id is not None and call_id.strip().upper() == input_call_id:
                         event_codes = manifest["event_codes"]
 
-                if event_codes is None:
-                    print("Port call not found")
+                if input_call_id is None:
+                    pass # Invalid format already printed "Port call not found."
+                elif event_codes is None:
+                    print("Port call not found.")
                 else:
                     # Sliding window: start of the current window and last position of every event
                     start, best_start, best_length = 0, 0, 0

@@ -2,21 +2,20 @@ from pathlib import Path
 import json 
 
 def processing_call_id():
-    input_call_id = input("Enter caller ID: ")
+    input_call_id = input("Enter call ID: ")
     input_call_id = input_call_id.strip().upper() #strip removes the surrounding white space
 
-#no need to check the caller id 
-    while (len(input_call_id) < 12 or 
-           input_call_id[0:3] != "HFL" or 
-           input_call_id[3] != "-" or 
-           not input_call_id[4:7].isalpha() or 
-           input_call_id[7] != "-" or 
+    #wrong format returns to the menu instead of asking again
+    if (len(input_call_id) < 12 or
+           input_call_id[0:3] != "HFL" or
+           input_call_id[3] != "-" or
+           not input_call_id[4:7].isalpha() or
+           input_call_id[7] != "-" or
            not input_call_id[8:].isdigit()):
-        
-        #print("Wrong format for call ID: eg. HFL-abc-1234")
+
         print("Port call not found.")
-        input_call_id = input("Enter call ID: ").strip().upper()
-        
+        return None
+
     return input_call_id
 
 def checking_call_id(input_call_id):
@@ -42,7 +41,7 @@ def checking_call_id(input_call_id):
         except (FileNotFoundError, OSError, json.JSONDecodeError):     #this excepts the error and alows the user to see the actual problem
             print(f"Manifest unavailable: {file_path.name}")
             continue 
-    print("Port call not found")                                       #if there is not match  
+    print("Port call not found.")                                      #if there is not match
     return None #menu()  TRY To return to menu 
 
 def shipment_data(shipment_ids):

@@ -22,10 +22,10 @@ def show_incidents():
             if 1 <= choice <= len(incidents):
                 return incidents[choice -1][1] # Returns the path to the chosen file. Indexing into the tuple (-1 to account for 0 start) [1] points at "filepath" in incidents.
             else:
-                print("Error select a listed incident.")
+                print("Error - Select a listed incident.")
                 continue
         except ValueError:
-            print("Error select a listed incident.")
+            print("Error - Select a listed incident.")
             continue
 
 
@@ -59,7 +59,7 @@ def write_file(changed_mail, incident, copied_file):
             
         with open(folder / (incident_name + "-sanitized.txt"), "w", encoding="utf-8") as file:
             file.write(changed_mail)
-            print("Incident sanitized.")
+            print("Incident sanitized:")
             return
 
 
